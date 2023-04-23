@@ -1,0 +1,28 @@
+@tailwind base;
+@layer base {
+  body {
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #1a202c;
+    background-color: #000000;
+  }
+  button,
+  [type="button"],
+  [type="reset"],
+  [type="submit"] {
+    -webkit-appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+
+  input {
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+}
+@tailwind components;
+@tailwind utilities;
