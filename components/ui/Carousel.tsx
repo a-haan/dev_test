@@ -35,7 +35,6 @@ export default function Carousel({ children }: Props) {
       x: 0,
       opacity: 1,
       scale: 1,
-      filter: 'blur(0px)',
     },
     exit: (direction: number) => ({
       opacity: 0.3,
@@ -71,7 +70,7 @@ export default function Carousel({ children }: Props) {
         <div
           {...handlers}
           className="relative h-[800px] w-full flex justify-evenly items-center">
-          <AnimatePresence custom={direction} mode='popLayout'>
+          <AnimatePresence custom={direction}>
             {children[index] ? (
               <motion.div
                 key={index}

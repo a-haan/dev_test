@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Toolbar from '../../components/ui/toolbar/Toolbar';
 import { motion } from 'framer-motion';
 import FavButton from '../../components/ui/favourites/FavButton';
+import { useMediaQuery } from '@mui/material';
 
 type Props = {
   planet: Planet;
@@ -74,11 +75,16 @@ export async function getStaticProps({ params }) {
 }
 
 export default function PlanetPage({ planet }: Props) {
+  const isMobile = useMediaQuery('(max-width: 600px)');
+
   const variants = {
-    hidden: { opacity: 0, clipPath: 'circle(0% at 50% 50%)' },
+    hidden: {
+      opacity: 0,
+      WebkitClipPath: !isMobile ? 'circle(0% at 50% 50%)' : undefined,
+    },
     visible: {
       opacity: 1,
-      clipPath: 'circle(100% at 50% 50%)',
+      WebkitClipPath: !isMobile ? 'circle(100% at 50% 50%)' : undefined,
       transition: {
         duration: 1,
         delay: 0.5,
@@ -89,7 +95,7 @@ export default function PlanetPage({ planet }: Props) {
   return (
     <>
       <motion.div
-        className="relative w-screen h-screen"
+        className="relative w-screen h-screen overflow-x-hidden"
         initial="hidden"
         animate="visible"
         variants={variants}>
