@@ -55,7 +55,7 @@ export default function Search({ open, setOpen }: Props) {
     maxWidth: 400,
     width: '100%',
     height: '100%',
-    overflow: 'scroll',
+    overflowY: 'auto',
     bgcolor: '#000',
     border: '2px solid #5f5858',
     boxShadow: 24,
@@ -192,7 +192,7 @@ export default function Search({ open, setOpen }: Props) {
             {loading ? (
               <CircularProgress />
             ) : (
-              <div className="w-full text-background-onDefault">
+              <div className="w-full text-background-onDefault overflow-y-auto">
                 {results.map((item: any) => (
                   <Link href={`/planets/${item.id}`} key={item.id}>
                     <ListItem
