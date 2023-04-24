@@ -190,7 +190,11 @@ export default function Search({ open, setOpen }: Props) {
               mt: 2,
             }}>
             {loading ? (
-              <CircularProgress />
+              <CircularProgress
+                sx={{
+                  color: '#00e0b5',
+                }}
+              />
             ) : (
               <div className="w-full text-background-onDefault overflow-y-auto divide-y-2 divide-background-outline">
                 {results.map((item: any) => (
