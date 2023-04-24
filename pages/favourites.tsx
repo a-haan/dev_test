@@ -91,6 +91,9 @@ const Favourites = (props: Props) => {
                 height: '5px',
                 borderRadius: '5px',
               },
+              '&.MuiLinearProgress-colorPrimary': {
+                backgroundColor: 'transparent',
+              },
             }}
           />
         </Box>
