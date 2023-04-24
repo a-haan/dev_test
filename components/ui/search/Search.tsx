@@ -52,7 +52,7 @@ export default function Search({ open, setOpen }: Props) {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    maxWidth: 400,
+    maxWidth: { xs: 300, md: 400, lg: 600 },
     width: '100%',
     height: '100%',
     overflowY: 'auto',
@@ -175,7 +175,7 @@ export default function Search({ open, setOpen }: Props) {
             />
           </div>
           <div className="flex mt-3 justify-between items-center prose prose-invert prose-img:rounded-3xl lg:prose-xl">
-            <Typography variant="h6" component="div" sx={{ mr: 2 }}>
+            <Typography variant="h6" component="div" sx={{ mr: 2, mt: 2 }}>
               Search results:
             </Typography>
             <Typography variant="h6" component="div" sx={{ color: '#00e0b5' }}>
@@ -192,7 +192,7 @@ export default function Search({ open, setOpen }: Props) {
             {loading ? (
               <CircularProgress />
             ) : (
-              <div className="w-full text-background-onDefault overflow-y-auto">
+              <div className="w-full text-background-onDefault overflow-y-auto divide-y-2 divide-background-outline">
                 {results.map((item: any) => (
                   <Link href={`/planets/${item.id}`} key={item.id}>
                     <ListItem
@@ -200,7 +200,14 @@ export default function Search({ open, setOpen }: Props) {
                       variants={variants}
                       initial="hidden"
                       animate="visible"
-                      color="inherit">
+                      color="inherit"
+                      sx={{
+                        borderBottom: '2px solid rgb(137 147 142)',
+                        '&:hover': {
+                          backgroundColor: '#00e0b5',
+                          color: '#000',
+                        },
+                      }}>
                       <ListItemButton>
                         <ListItemAvatar>
                           <Avatar
@@ -211,7 +218,6 @@ export default function Search({ open, setOpen }: Props) {
                             src={item.image}
                           />
                         </ListItemAvatar>
-
                         <ListItemText
                           sx={{
                             textDecoration: 'none',

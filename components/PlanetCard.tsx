@@ -76,8 +76,8 @@ export default function PlanetCard({ planet }: Props) {
             Visit Planet
           </motion.button>
         </Link>
-        <p className="text-base mb-1 font-bold text-background-onSurface opacity-70">
-          {planet.date}
+        <p className="text-base my-1 font-bold text-background-onSurface opacity-70">
+          Discovered on {planet.date}
         </p>
       </div>
     </div>
