@@ -24,44 +24,57 @@ const Favourites = (props: Props) => {
   const [loading, setLoading] = useState(false);
 
   const fetchFavs = useCallback(async () => {
-    const res = await fetch(
-      `https://binary-vision.s3.eu-west-2.amazonaws.com/discoveries.json`,
-    );
-    const data = await res.json();
-    setLoading(true);
+    try {
+      const res = await fetch(
+        `https://binary-vision.s3.eu-west-2.amazonaws.com/discoveries.json`,
+      );
+      const data = await res.json();
+      setLoading(true);
 
-    const nasaData = await Promise.all(
-      data.map(async (item: any) => {
-        const planet = item.hostname;
-        const date = item.releasedate;
-        const radius = item.pl_rade;
-        const nasaData = await fetchNasaData(planet, date, radius);
+      const nasaData = await Promise.all(
+        data.map(async (item: any) => {
+          const planet = item.hostname;
+          const date = item.releasedate;
+          const radius = item.pl_rade;
+          const nasaData = await fetchNasaData(planet, date, radius);
 
-        return nasaData;
-      }),
-    );
+          return nasaData;
+        }),
+      );
 
-    const uniqueNasaData = nasaData.filter((item: any, index: number) => {
-      const isDuplicate = nasaData.findIndex((planet: any) => {
-        return planet.id === item.id;
+      const uniqueNasaData = nasaData.filter((item: any, index: number) => {
+        const isDuplicate = nasaData.findIndex((planet: any) => {
+          return planet.id === item.id;
+        });
+        return isDuplicate === index;
       });
-      return isDuplicate === index;
-    });
 
-    const favsData = uniqueNasaData.filter((item: any) => {
-      const slug = favs.some((fav: any) => fav === item.id);
-      return slug;
-    });
-    if (favsData) {
-      setLoading(false);
+      const favsData = uniqueNasaData.filter((item: any) => {
+        const slug = favs.some((fav: any) => fav === item.id);
+        return slug;
+      });
+      if (favsData) {
+        setLoading(false);
+      }
+
+      setFavsData(favsData);
+    } catch (error) {
+      console.log(error);
     }
-
-    setFavsData(favsData);
   }, [favs]);
 
   useMemo(() => {
-    fetchFavs();
-  }, [fetchFavs]);
+    if (favs.length > 0) {
+      fetchFavs();
+    }
+    if (favs.length === 0) {
+      setFavsData([]);
+    }
+
+    return () => {
+      setFavsData([]);
+    };
+  }, [fetchFavs, favs]);
 
   const variants = {
     hidden: { opacity: 0 },
